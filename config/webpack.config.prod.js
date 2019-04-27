@@ -11,10 +11,8 @@ module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
 
-  output: {
-    path: path.resolve(__dirname, '../build/'),
-    filename: '[name]-[hash].js'
-  },
+  output:
+      {path: path.resolve(__dirname, '../dist/'), filename: '[name]-[hash].js'},
 
   plugins: [new CleanWebpackPlugin(), new ManifestPlugin()],
 
@@ -28,7 +26,7 @@ module.exports = merge(common, {
             options: {
               name: '[path][name]-[hash].[ext]',
               outputPath: '/',
-              publicPath: '../build',
+              publicPath: '../dist',
             },
           },
         ],
