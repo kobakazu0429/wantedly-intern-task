@@ -16,7 +16,8 @@ This code does **not** include framework, ci, and other (production) tools.
 # ... Setup node and yarn
 $ git clone git@github.com:kobakazu0429/react-webpack-boilerplate.git --depth 1 <your project name>
 $ cd <your project name>
-$ git remote rm origin # optional
+$ git fetch origin --unshallow
+$ git remote rm origin
 $ yarn install
 $ yarn dev    # Start webpack-dev-server
 $ yarn build  # Build to dist/
