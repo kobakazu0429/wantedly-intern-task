@@ -14,7 +14,7 @@ export default (props: IProps) => {
   return (
     <Ul>
       {store.todos.map(todo => (
-        <ToDoItem {...todo} />
+        <ToDoItem key={todo.uuid} {...todo} />
       ))}
     </Ul>
   );
