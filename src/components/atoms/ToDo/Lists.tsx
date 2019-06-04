@@ -10,13 +10,20 @@ interface IProps {
 }
 
 export default observer((props: IProps) => {
-  const store = props.todoStore;
+  const { todoStore } = props;
+  const { deleteTodo, toggleCompleted } = todoStore;
 
   return (
     <Ul>
-      {store.todos.map(todo => {
-        console.log(todo);
-        return <ToDoItem key={todo.uuid} {...todo} />;
+      {todoStore.todos.map(todo => {
+        return (
+          <ToDoItem
+            key={todo.uuid}
+            toggleCompleted={toggleCompleted}
+            deleteTodo={deleteTodo}
+            {...todo}
+          />
+        );
       })}
     </Ul>
   );

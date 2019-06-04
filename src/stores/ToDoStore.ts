@@ -7,6 +7,7 @@ export interface IToDoStore {
   todos: IToDo[];
   addTodo: (text: string) => void;
   deleteTodo: (uuid: string) => void;
+  toggleCompleted: (uuid: string) => void;
 }
 
 const ToDoStore = (): IToDoStore => {
@@ -21,7 +22,13 @@ const ToDoStore = (): IToDoStore => {
     todos.splice(index, 1);
   }, []);
 
-  return { todos, addTodo, deleteTodo };
+  const toggleCompleted = React.useCallback((uuid: string) => {
+    const index = todos.findIndex(todo => todo.uuid === uuid);
+    if (!todos[index]) return;
+    todos[index].isCompleted = !todos[index].isCompleted;
+  }, []);
+
+  return { todos, addTodo, deleteTodo, toggleCompleted };
 };
 
 export default ToDoStore;

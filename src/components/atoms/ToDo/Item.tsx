@@ -4,22 +4,36 @@ import styled from "styled-components";
 import { color } from "@/constants/styles";
 
 import { IToDo } from "@/models/ToDo";
+import { IToDoStore } from "@/stores/ToDoStore";
 
-export default (props: IToDo) => (
-  <ToDo onClick={props.toggleCompleted}>
-    <span
-      style={{
-        textDecoration: props.isCompleted ? "line-through" : "none"
-      }}
-    >
-      {props.text}
-    </span>
-    <DeleteIcon
-      className="fas fa-trash"
-      // onClick={} /* delete todo */
-    />
-  </ToDo>
-);
+interface IProps
+  extends IToDo,
+    Pick<IToDoStore, "deleteTodo" | "toggleCompleted"> {}
+
+export default (props: IProps) => {
+  const { text, isCompleted, uuid, deleteTodo, toggleCompleted } = props;
+
+  const handleDelete = React.useCallback(() => {
+    deleteTodo(uuid);
+  }, []);
+
+  const handleCompleted = React.useCallback(() => {
+    toggleCompleted(uuid);
+  }, []);
+
+  return (
+    <ToDo onClick={handleCompleted}>
+      <span
+        style={{
+          textDecoration: isCompleted ? "line-through" : "none"
+        }}
+      >
+        {text}
+      </span>
+      <DeleteIcon className="fas fa-trash" onClick={handleDelete} />
+    </ToDo>
+  );
+};
 
 const ToDo = styled.li`
   padding: 0 20px;
