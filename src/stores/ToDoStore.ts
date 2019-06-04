@@ -5,9 +5,11 @@ import ToDo, { IToDo } from "@/models/ToDo";
 
 export interface IToDoStore {
   todos: IToDo[];
+  completedTodos: () => IToDo[];
+  incompletedTodos: () => IToDo[];
+  toggleCompleted: (uuid: string) => void;
   addTodo: (text: string) => void;
   deleteTodo: (uuid: string) => void;
-  toggleCompleted: (uuid: string) => void;
 }
 
 const ToDoStore = (): IToDoStore => {
@@ -28,7 +30,22 @@ const ToDoStore = (): IToDoStore => {
     todos[index].isCompleted = !todos[index].isCompleted;
   }, []);
 
-  return { todos, addTodo, deleteTodo, toggleCompleted };
+  const completedTodos = React.useCallback(() => {
+    return todos.filter(todo => todo.isCompleted);
+  }, []);
+
+  const incompletedTodos = React.useCallback(() => {
+    return todos.filter(todo => !todo.isCompleted);
+  }, []);
+
+  return {
+    todos,
+    completedTodos,
+    incompletedTodos,
+    toggleCompleted,
+    addTodo,
+    deleteTodo
+  };
 };
 
 export default ToDoStore;
