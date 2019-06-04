@@ -28,6 +28,7 @@ export default (props: IProps) => {
   const addTodo = React.useCallback(() => {
     if (!value) return;
     todoStore.addTodo(value);
+    setValue("");
   }, [value]);
 
   return (
