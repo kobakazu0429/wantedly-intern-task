@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import RectangleButton from "@/components/atoms/Buttons/RectangleButton";
-
 import { color, device } from "@/constants/styles";
+import RootContext from "@/utils/Contexts/RootContext";
+
+import RectangleButton from "@/components/atoms/Buttons/RectangleButton";
 
 interface IProps {
   handleOpenModal: () => void;
@@ -12,6 +13,9 @@ interface IProps {
 }
 
 export default (props: IProps) => {
+  const rootStore = React.useContext(RootContext);
+  const { todoStore } = rootStore;
+
   const [value, setValue] = React.useState("");
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +24,11 @@ export default (props: IProps) => {
     },
     []
   );
+
+  const addTodo = React.useCallback(() => {
+    if (!value) return;
+    todoStore.addTodo(value);
+  }, [value]);
 
   return (
     <Wrapper>
@@ -39,9 +48,7 @@ export default (props: IProps) => {
         <RectangleButton onClick={props.handleCloseModal!}>
           キャンセルする
         </RectangleButton>
-        <RectangleButton onClick={() => console.log(value)}>
-          登録する
-        </RectangleButton>
+        <RectangleButton onClick={addTodo}>登録する</RectangleButton>
       </Buttons>
     </Wrapper>
   );
