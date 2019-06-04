@@ -3,8 +3,8 @@ import { v4 as uuidV4 } from "uuid";
 export interface IToDo {
   text: string;
   isCompleted: boolean;
-  uuid?: string;
-  toggleCompleted?: () => void;
+  uuid: string;
+  toggleCompleted: () => void;
 }
 
 const ToDo = (text: string): IToDo => ({
