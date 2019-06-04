@@ -4,10 +4,17 @@ import { useObserver } from "mobx-react-lite";
 import moment from "moment";
 
 import { color } from "@/constants/styles";
-import { RootContext } from "@/components/App";
-import ToDoModalMenu from "@/components/organisms/ToDo/Modal";
+import RootContext from "@/utils/Contexts/RootContext";
 
-export default () => {
+import CircleButton from "@/components/atoms/Buttons/CircleButton";
+
+interface IProps {
+  handleOpenModal: () => void;
+}
+
+export default (props: IProps) => {
+  const { handleOpenModal } = props;
+
   const rootStore = React.useContext(RootContext);
   const { todoStore } = rootStore;
 
@@ -25,7 +32,9 @@ export default () => {
       <Tasks>
         <b>{todoStore.todos.length}</b> Tasks
       </Tasks>
-      <ToDoModalMenu />
+      <CircleButton onClick={handleOpenModal}>
+        <i className="fas fa-plus" />
+      </CircleButton>
     </Wrapper>
   ));
 };
