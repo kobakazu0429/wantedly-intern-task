@@ -5,29 +5,21 @@ import { color } from "@/constants/styles";
 
 import { IToDo } from "@/models/ToDo";
 
-class ToDoItem extends React.Component<IToDo> {
-  constructor(props: IToDo) {
-    super(props);
-  }
-
-  public render() {
-    return (
-      <ToDo onClick={this.props.toggleCompleted}>
-        <span
-          style={{
-            textDecoration: this.props.isCompleted ? "line-through" : "none"
-          }}
-        >
-          {this.props.text}
-        </span>
-        <DeleteIcon
-          className="fas fa-trash"
-          // onClick={} /* delete todo */
-        />
-      </ToDo>
-    );
-  }
-}
+export default (props: IToDo) => (
+  <ToDo onClick={props.toggleCompleted}>
+    <span
+      style={{
+        textDecoration: props.isCompleted ? "line-through" : "none"
+      }}
+    >
+      {props.text}
+    </span>
+    <DeleteIcon
+      className="fas fa-trash"
+      // onClick={} /* delete todo */
+    />
+  </ToDo>
+);
 
 const ToDo = styled.li`
   padding: 0 20px;
@@ -52,5 +44,3 @@ const DeleteIcon = styled.i`
   font-size: 15px;
   line-height: 70px;
 `;
-
-export default ToDoItem;

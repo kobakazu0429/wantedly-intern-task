@@ -1,32 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
-import RootStore from "@/stores/RootStore";
-import { IToDo } from "@/models/ToDo";
+import { IToDoStore } from "@/stores/ToDoStore";
 import ToDoItem from "./Item";
 
 interface IProps {
-  rootStore: RootStore;
+  todoStore: IToDoStore;
 }
 
-class ToDoLists extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-    this.todos = this.props.rootStore.todoStore.todos;
-  }
+export default (props: IProps) => {
+  const store = props.todoStore;
 
-  public todos: IToDo[];
-
-  public render() {
-    return (
-      <Ul>
-        {this.todos.map(todo => (
-          <ToDoItem {...todo} />
-        ))}
-      </Ul>
-    );
-  }
-}
+  return (
+    <Ul>
+      {store.todos.map(todo => (
+        <ToDoItem {...todo} />
+      ))}
+    </Ul>
+  );
+};
 
 const Ul = styled.ul`
   display: flex;
@@ -36,5 +28,3 @@ const Ul = styled.ul`
   justify-content: center;
   align-items: center;
 `;
-
-export default ToDoLists;
