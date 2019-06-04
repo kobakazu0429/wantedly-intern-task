@@ -1,9 +1,9 @@
-import ToDoStore from "./ToDoStore";
+import ToDoStore, { IToDoStore } from "./ToDoStore";
 
 export default class RootStore {
   constructor() {
-    this.ToDoStore = new ToDoStore();
+    this.todoStore = ToDoStore();
   }
 
-  public ToDoStore: ToDoStore;
+  public todoStore: IToDoStore;
 }
