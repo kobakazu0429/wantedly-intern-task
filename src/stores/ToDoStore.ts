@@ -1,5 +1,7 @@
+import React from "react";
+import { useObservable } from "mobx-react-lite";
+
 import ToDo, { IToDo } from "@/models/ToDo";
-import { useLocalStore } from "mobx-react-lite";
 
 export interface IToDoStore {
   todos: IToDo[];
@@ -7,13 +9,19 @@ export interface IToDoStore {
   deleteTodo: (uuid: string) => void;
 }
 
-export default () =>
-  useLocalStore<IToDoStore>(() => ({
-    todos: [],
-    addTodo(text: string) {
-      this.todos.push(ToDo(text));
-    },
-    deleteTodo(uuid: string) {
-      this.todos = this.todos.filter(todo => todo.uuid !== uuid);
-    }
-  }));
+const ToDoStore = (): IToDoStore => {
+  const todos: IToDo[] = useObservable([]);
+
+  const addTodo = React.useCallback((text: string) => {
+    todos.push(ToDo(text));
+  }, []);
+
+  const deleteTodo = React.useCallback((uuid: string) => {
+    const index = todos.findIndex(todo => todo.uuid === uuid);
+    todos.splice(index, 1);
+  }, []);
+
+  return { todos, addTodo, deleteTodo };
+};
+
+export default ToDoStore;
