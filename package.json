@@ -16,6 +16,7 @@
     ]
   },
   "dependencies": {
+    "@types/react-modal": "^3.8.2",
     "@types/styled-components": "^4.1.15",
     "@types/uuid": "^3.4.4",
     "mobx": "^5.9.4",
@@ -24,6 +25,7 @@
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-modal": "^3.8.1",
     "react-router-dom": "^5.0.0",
     "styled-components": "^4.2.1",
     "uuid": "^3.3.2"
