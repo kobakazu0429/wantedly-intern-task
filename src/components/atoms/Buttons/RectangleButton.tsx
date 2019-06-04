@@ -4,12 +4,12 @@ import styled from "styled-components";
 import { color } from "@/constants/styles";
 
 interface IProps {
-  InnerComponents: React.ReactNode | HTMLElement | string;
+  children: React.ReactNode | HTMLElement | string;
   onClick: () => void;
 }
 
 export default (props: IProps) => (
-  <Button onClick={props.onClick}>{props.InnerComponents}</Button>
+  <Button onClick={props.onClick}>{props.children}</Button>
 );
 
 const Button = styled.button`
