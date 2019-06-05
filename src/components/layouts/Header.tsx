@@ -93,5 +93,5 @@ const SelectWrapper = styled.div`
   width: 120px;
   position: absolute;
   top: 70px;
-  right: 100px;
+  right: 90px;
 `;
