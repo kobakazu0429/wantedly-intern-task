@@ -1,10 +1,10 @@
 import React from "react";
-import { useComputed, useObservable } from "mobx-react-lite";
+import { useObservable } from "mobx-react-lite";
 
 import ToDo, { IToDo } from "@/models/ToDo";
 
 export interface IToDoStore {
-  getTodos: IToDo[];
+  getTodos: () => IToDo[];
   toggleCompleted: (uuid: string) => void;
   addTodo: (text: string) => void;
   deleteTodo: (uuid: string) => void;
@@ -52,7 +52,7 @@ const ToDoStore = (): IToDoStore => {
     return todos.filter(todo => !todo.isCompleted);
   }, []);
 
-  const getTodos = useComputed(() => {
+  const getTodos = React.useCallback(() => {
     switch (filtering) {
       case todoFilterEnum.All:
         return todos;

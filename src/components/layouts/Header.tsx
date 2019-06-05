@@ -32,7 +32,7 @@ export default (props: IProps) => {
       </Date>
       <Month>{month}</Month>
       <Tasks>
-        <b>{todoStore.getTodos.length}</b> Tasks
+        <b>{todoStore.getTodos().length}</b> Tasks
       </Tasks>
       <SelectWrapper>
         <Select
