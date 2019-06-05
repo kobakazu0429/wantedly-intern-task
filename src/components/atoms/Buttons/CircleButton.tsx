@@ -21,9 +21,6 @@ const Button = styled.button`
   border-radius: 50%;
   transition: 0.3s;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
-  position: absolute;
-  top: ${110 - 56 / 2}px;
-  right: 30px;
   font-size: 18px;
   color: white;
   line-height: 56px;
