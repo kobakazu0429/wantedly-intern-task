@@ -14,3 +14,7 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/serviceWorker.js");
+}
