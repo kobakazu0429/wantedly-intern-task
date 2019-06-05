@@ -1,5 +1,7 @@
 # wantedly-intern-task
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dae8a52d-c047-4afc-a893-1c09f4c64d61/deploy-status)](https://app.netlify.com/sites/wantedly-intern-task/deploys)
+
 ## How to dev
 
 ### Setup
