@@ -5,7 +5,9 @@ import moment from "moment";
 
 import { color } from "@/constants/styles";
 import RootContext from "@/utils/Contexts/RootContext";
+import { keysForSelect } from "@/stores/ToDoStore";
 
+import Select from "@/components/atoms/Forms/Select";
 import CircleButton from "@/components/atoms/Buttons/CircleButton";
 
 interface IProps {
@@ -30,11 +32,20 @@ export default (props: IProps) => {
       </Date>
       <Month>{month}</Month>
       <Tasks>
-        <b>{todoStore.todos.length}</b> Tasks
+        <b>{todoStore.getTodos().length}</b> Tasks
       </Tasks>
-      <CircleButton onClick={handleOpenModal}>
-        <i className="fas fa-plus" />
-      </CircleButton>
+      <SelectWrapper>
+        <Select
+          value={todoStore.filtering as any}
+          onChange={todoStore.setFiltering as any}
+          optionElements={keysForSelect}
+        />
+      </SelectWrapper>
+      <CircleButtonWrapper>
+        <CircleButton onClick={handleOpenModal}>
+          <i className="fas fa-plus" />
+        </CircleButton>
+      </CircleButtonWrapper>
     </Wrapper>
   ));
 };
@@ -70,4 +81,17 @@ const Tasks = styled.span`
   margin: 5px 0;
   top: 35px;
   right: 25px;
+`;
+
+const CircleButtonWrapper = styled.div`
+  position: absolute;
+  top: ${110 - 56 / 2}px;
+  right: 30px;
+`;
+
+const SelectWrapper = styled.div`
+  width: 120px;
+  position: absolute;
+  top: 70px;
+  right: 100px;
 `;

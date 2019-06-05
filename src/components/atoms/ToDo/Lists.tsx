@@ -15,7 +15,7 @@ export default observer((props: IProps) => {
 
   return (
     <Ul>
-      {todoStore.todos.map(todo => {
+      {todoStore.getTodos().map(todo => {
         return (
           <ToDoItem
             key={todo.uuid}

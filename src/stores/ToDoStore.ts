@@ -4,13 +4,29 @@ import { useObservable } from "mobx-react-lite";
 import ToDo, { IToDo } from "@/models/ToDo";
 
 export interface IToDoStore {
-  todos: IToDo[];
+  getTodos: () => IToDo[];
+  toggleCompleted: (uuid: string) => void;
   addTodo: (text: string) => void;
   deleteTodo: (uuid: string) => void;
-  toggleCompleted: (uuid: string) => void;
+  filtering: number;
+  setFiltering: (filtering: number) => void;
 }
 
+export enum todoFilterEnum {
+  All,
+  Done,
+  Pending
+}
+
+export const keysForSelect = {
+  All: todoFilterEnum.All,
+  Done: todoFilterEnum.Done,
+  Pending: todoFilterEnum.Pending
+};
+
 const ToDoStore = (): IToDoStore => {
+  const [filtering, setFiltering] = React.useState(0);
+
   const todos: IToDo[] = useObservable([]);
 
   const addTodo = React.useCallback((text: string) => {
@@ -28,7 +44,38 @@ const ToDoStore = (): IToDoStore => {
     todos[index].isCompleted = !todos[index].isCompleted;
   }, []);
 
-  return { todos, addTodo, deleteTodo, toggleCompleted };
+  const completedTodos = React.useCallback(() => {
+    return todos.filter(todo => todo.isCompleted);
+  }, []);
+
+  const incompletedTodos = React.useCallback(() => {
+    return todos.filter(todo => !todo.isCompleted);
+  }, []);
+
+  const getTodos = React.useCallback(() => {
+    switch (filtering) {
+      case todoFilterEnum.All:
+        return todos;
+
+      case todoFilterEnum.Done:
+        return completedTodos();
+
+      case todoFilterEnum.Pending:
+        return incompletedTodos();
+
+      default:
+        return todos;
+    }
+  }, [filtering]);
+
+  return {
+    getTodos,
+    toggleCompleted,
+    addTodo,
+    deleteTodo,
+    filtering,
+    setFiltering
+  };
 };
 
 export default ToDoStore;
